@@ -3,11 +3,13 @@ import {
   addLink,
   deleteLink,
   getLink,
-  getLinks,
+  getLinksByUsername,
   updateLink,
+  getProfileLinks,
 } from '../controllers/link.controller';
 
 export const linkRouter = express.Router();
 
-linkRouter.route('/').get(getLinks).post(addLink);
+linkRouter.route('/').get(getProfileLinks).post(addLink);
+linkRouter.route('/user').get(getLinksByUsername);
 linkRouter.route('/:id').get(getLink).patch(updateLink).delete(deleteLink);
