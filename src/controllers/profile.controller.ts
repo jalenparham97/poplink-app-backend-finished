@@ -52,10 +52,11 @@ export async function addProfile(req: Request, res: Response) {
     return res.status(201).json(newProfile);
   } catch (error: any) {
     console.log(error);
-    if (error.codeName === 'DuplicateKey') {
-      return res
-        .status(400)
-        .json({ message: 'Profile username already exists' });
+    if (error.code === 11000) {
+      return res.status(400).json({
+        message: 'Profile username already exists',
+        type: 'DuplicateKey',
+      });
     }
     return res.status(500).json(error);
   }
@@ -70,10 +71,11 @@ export async function updateProfile(req: Request, res: Response) {
     return res.status(200).json(updatedProfile);
   } catch (error: any) {
     console.log(error);
-    if (error.codeName === 'DuplicateKey') {
-      return res
-        .status(400)
-        .json({ message: 'Profile username already exists' });
+    if (error.code === 11000) {
+      return res.status(400).json({
+        message: 'Profile username already exists',
+        type: 'DuplicateKey',
+      });
     }
     return res.status(500).json(error);
   }
