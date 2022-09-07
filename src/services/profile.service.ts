@@ -7,7 +7,10 @@ async function getProfiles() {
 }
 
 async function getUserProfiles(userId: string) {
-  const profiles = await profileModel.find({ userId }).lean();
+  const profiles = await profileModel
+    .find({ userId })
+    .sort({ createdAt: 'desc' })
+    .lean();
   return profiles;
 }
 
